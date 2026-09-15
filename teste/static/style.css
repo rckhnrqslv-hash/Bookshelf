@@ -1,0 +1,418 @@
+/* Paleta de cores selecionada: Paleta 3 (Night Bordeaux, Burnt Rose, Pale Oak, Bronze, Dusty Taupe) */
+:root {
+    --bg-main: #5E0B15;       /* Night Bordeaux */
+    --bg-card: #90323D;       /* Burnt Rose */
+    --text-light: #D9CAB3;    /* Pale Oak */
+    --accent: #BC8034;        /* Bronze */
+    --muted: #8C7A6B;         /* Dusty Taupe */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vi;
+}
+
+/* Telas de Login e Cadastro */
+.auth-container {
+    max-width: 400px;
+    width: 90%;
+    margin: 80px auto;
+    background-color: var(--bg-card);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.auth-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--accent);
+    font-family: 'Georgia', serif;
+}
+
+.auth-container h2 {
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--muted);
+    border-radius: 6px;
+    background-color: var(--text-light);
+    color: #111;
+    font-size: 1rem;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #a46f2b;
+}
+
+.auth-links {
+    margin-top: 20px;
+}
+
+.auth-links a {
+    color: var(--text-light);
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+/* Biblioteca / Homepage */
+header {
+    background-color: var(--bg-card);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--accent);
+}
+
+header h1 {
+    color: var(--accent);
+    font-family: 'Georgia', serif;
+}
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.search-bar input {
+    padding: 8px 15px;
+    border-radius: 6px;
+    border: 1px solid var(--muted);
+    background-color: var(--text-light);
+}
+
+.search-bar button {
+    padding: 8px 15px;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.book-card {
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.book-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.book-author {
+    color: var(--accent);
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.book-meta {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.progress-container {
+    background-color: var(--muted);
+    border-radius: 4px;
+    height: 8px;
+    width: 100%;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: var(--accent);
+    height: 100%;
+}
+
+.progress-text {
+    font-size: 0.8rem;
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.btn-read {
+    display: inline-block;
+    text-align: center;
+    background-color: var(--accent);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Mensagens de Flash */
+.flash-messages {
+    background-color: #ffdddd;
+    color: #aabbcc;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ffcccc;
+}
+.flash-success { background-color: #d4edda; color: #155724; }
+.flash-error { background-color: #f8d7da; color: #721c24; }
+
+/* ==========================================================================
+   INTERFACES COMPLEMENTARES - ESTILO INSTAGRAM (BOOKSHELF INTEGRATION)
+   ========================================================================== */
+
+.instagram-profile-layout {
+    max-width: 935px; /* Tamanho padrão de visualização de perfil do Instagram */
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Apresentação do Usuário */
+.profile-header {
+    display: flex;
+    margin-bottom: 44px;
+    gap: 30px;
+}
+
+.profile-avatar-container {
+    flex-basis: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    background-color: var(--bg-card);
+    border: 3px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--text-light);
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.profile-info {
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-username-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-username-row .username {
+    font-size: 1.75rem;
+    color: var(--text-light);
+    font-weight: 300;
+}
+
+.btn-profile-action {
+    background-color: transparent;
+    border: 1px solid var(--muted);
+    color: var(--text-light);
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.btn-profile-action:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.profile-stats {
+    display: flex;
+    gap: 40px;
+    font-size: 1rem;
+}
+
+.profile-bio h1 {
+    font-size: 1rem;
+    font-family: 'Segoe UI', sans-serif !important;
+    color: var(--text-light);
+    margin-bottom: 4px;
+}
+
+.profile-bio p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-light);
+    opacity: 0.9;
+}
+
+/* Sistema de Abas Estilo Instagram */
+.profile-tabs {
+    border-top: 1px solid var(--muted);
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    border-top: 1px solid transparent;
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 18px 0;
+    margin-top: -1px;
+    transition: color 0.2s;
+}
+
+.tab-button:hover, .tab-button.active {
+    color: var(--text-light);
+}
+
+.tab-button.active {
+    border-top: 1px solid var(--text-light);
+}
+
+/* Controladores de Exibição das Abas */
+.tab-content {
+    display: none;
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.empty-tab-message {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* Modificações Esturutais Específicas para Escrita e Publicação */
+.draft-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+}
+
+.drafts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.draft-card {
+    border-left: 4px solid var(--accent);
+}
+
+.draft-preview {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    opacity: 0.7;
+    margin-top: 8px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.publish-form-container {
+    margin: 20px auto !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Responsividade de Tela */
+@media (max-width: 735px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .profile-username-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .profile-stats {
+        justify-content: center;
+        gap: 20px;
+    }
+    .profile-tabs {
+        gap: 20px;
+    }
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshelf - Perfil do Usuário</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar Original Mantida Conforme Solicitado -->
+    <header>
+        <h1>Bookshelf</h1>
+        <form action="{{ url_for('biblioteca') }}" method="GET" class="search-bar">
+            <input type="text" name="q" placeholder="Buscar livro ou autor..." value="{{ busca or '' }}">
+            <button type="submit">Buscar</button>
+        </form>
+    </header>
+
+    <main class="instagram-profile-layout">
+        <!-- 3. Apresentação do Usuário (Estilo Instagram) -->
+        <section class="profile-header">
+            <div class="profile-avatar-container">
+                <!-- Foto de Perfil com as cores da paleta -->
+                <div class="profile-avatar">
+                    <span>{{ usuario.nome[0] | upper if usuario else 'B' }}</span>
+                </div>
+            </div>
+            
+            <div class="profile-info">
+                <div class="profile-username-row">
+                    <h2 class="username">{{ usuario.username if usuario else 'autor_bookshelf' }}</h2>
+                    <button class="btn-profile-action">Editar perfil</button>
+                </div>
+                
+                <div class="profile-stats">
+                    <div><strong>{{ livros_prateleira | length }}</strong> livros salvos</div>
+                    <div><strong>{{ rascunhos | length }}</strong> rascunhos</div>
+                    <div><strong>{{ publicados | length }}</strong> publicados</div>
+                </div>
+                
+                <div class="profile-bio">
+                    <h1>{{ usuario.nome if usuario else 'Nome do Autor' }}</h1>
+                    <p>{{ usuario.bio if usuario else 'Escrevendo histórias, conectando mundos. Desenvolvedor e Escritor na Bookshelf Co.' }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2 e 3. Botões de Alternância de Abas (Substitutos de Fotos, Reels e Salvos) -->
+        <nav class="profile-tabs">
+            <button class="tab-button active" onclick="switchTab(event, 'prateleira')">
+                <span class="tab-icon">📚</span> PRATELEIRA
+            </button>
+            <button class="tab-button" onclick="switchTab(event, 'escrita')">
+                <span class="tab-icon">✍️</span> ESCRITA
+            </button>
+            <button class="tab-button" onclick="switchTab(event, 'publicar')">
+                <span class="tab-icon">📤</span> PUBLICAR
+            </button>
+        </nav>
+
+        <!-- 3. Mini Telas Relacionadas a Cada Item -->
+        <section class="profile-tabs-content">
+            
+            <!-- ABA 1: PRATELEIRA (Armazena livros que gostou ou fez) -->
+            <div id="prateleira" class="tab-content active">
+                <div class="books-grid">
+                    {% for livro in livros_prateleira %}
+                        <div class="book-card">
+                            <div>
+                                <div class="book-title">{{ livro.titulo }}</div>
+                                <div class="book-author">Por: {{ livro.autor }}</div>
+                                <div class="book-meta">Formato: {{ livro.formato }} | Tamanho: {{ livro.tamanho }}</div>
+                            </div>
+                            <div>
+                                <div class="progress-container">
+                                    <div class="progress-bar" style="width: {{ livro.progresso }}%;"></div>
+                                </div>
+                                <div class="progress-text">{{ livro.paginas }} ({{ livro.progresso }}%)</div>
+                                <a href="#" class="btn-read">Modo de foco</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="empty-tab-message">Nenhum livro salvo na sua prateleira ainda.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- ABA 2: ESCRITA (Rascunhos de seus próprios livros) -->
+            <div id="escrita" class="tab-content">
+                <div class="drafts-container">
+                    <div class="draft-header-actions">
+                        <h3>Seus Rascunhos Ativos</h3>
+                        <button class="btn-submit" style="width: auto; margin: 0;">Novo Rascunho</button>
+                    </div>
+                    <div class="drafts-grid">
+                        {% for rascunho in rascunhos %}
+                            <div class="book-card draft-card">
+                                <div>
+                                    <div class="book-title">{{ rascunho.titulo }}</div>
+                                    <div class="book-meta">Última modificação: {{ rascunho.updated_at }}</div>
+                                    <p class="draft-preview">{{ rascunho.previa }}...</p>
+                                </div>
+                                <a href="#" class="btn-read" style="background-color: var(--muted);">Continuar Escrevendo</a>
+                            </div>
+                        {% else %}
+                            <p class="empty-tab-message">Você não possui rascunhos iniciados.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA 3: PUBLICAR (Formulário para mandar arquivos e publicar no site) -->
+            <div id="publicar" class="tab-content">
+                <div class="auth-container publish-form-container">
+                    <h1>Publicar Obra</h1>
+                    <h2>Envie seu livro para o ecossistema Bookshelf</h2>
+                    
+                    <form action="{{ url_for('publicar_livro') }}" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="titulo">Título do Livro</label>
+                            <input type="text" id="titulo" name="titulo" required placeholder="Ex: O Império de Bordeaux">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="genero">Gênero Literário</label>
+                            <input type="text" id="genero" name="genero" required placeholder="Ex: Fantasia, Romance">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="arquivo">Arquivo do Manuscrito (PDF, EPUB)</label>
+                            <input type="file" id="arquivo" name="arquivo" required accept=".pdf,.epub" style="background: none; color: var(--text-light); padding: 5px 0;">
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">Publicar para o Mundo</button>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Script de alternância de abas idêntico ao comportamento do Instagram -->
+    <script>
+        function switchTab(event, tabId) {
+            // Remove a classe active de todas as abas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Remove a classe active de todos os botões
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            // Ativa a aba clicada e o respectivo botão
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

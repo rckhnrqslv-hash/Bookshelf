@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshelf - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="auth-container">
+        <h1>Bookshelf</h1>
+        <h2>Login</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-messages flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('login') }}" method="POST">
+            <div class="form-group">
+                <label for="email">NOME/EMAIL:</label>
+                <input type="text" id="email" name="email" required placeholder="Insira seu e-mail">
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required placeholder="Insira sua senha">
+            </div>
+            <p style="text-align: right; margin-bottom: 15px;"><a href="#" style="color: var(--text-light); font-size: 0.85rem;">Esqueceu Senha?</a></p>
+            <button type="submit" class="btn-submit">ENTRAR</button>
+        </form>
+        <div class="auth-links">
+            <a href="{{ url_for('cadastro') }}">Não Possui Cadastro? Crie uma conta</a>
+        </div>
+    </div>
+</body>
+</html>

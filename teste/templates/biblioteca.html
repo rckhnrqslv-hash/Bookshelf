@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshelf - Suas Leituras</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Bookshelf</h1>
+        <form action="{{ url_for('biblioteca') }}" method="GET" class="search-bar">
+    <input type="text" name="q" placeholder="Buscar livro ou autor..." value="{{ busca }}">
+    <button type="submit">Buscar</button>
+</form>
+
+    </header>
+
+    <main>
+        <h2>Suas Leituras</h2>
+        <div class="books-grid">
+            {% for livro in livros %}
+                <div class="book-card">
+                    <div>
+                        <div class="book-title">{{ livro.titulo }}</div>
+                        <div class="book-author">Por: {{ livro.autor }}</div>
+                        <div class="book-meta">Formato: {{ livro.formato }} | Tamanho: {{ livro.tamanho }}</div>
+                    </div>
+                    <div>
+                        <div class="progress-container">
+                         <div class="progress-bar" style="width: {{ livro.progresso }}%;"></div>
+                        </div>
+                        <div class="progress-text">{{ livro.paginas }} ({{ livro.progresso }}%)</div>
+                        <a href="#" class="btn-read">Modo de foco</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>
